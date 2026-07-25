@@ -1,36 +1,20 @@
-#include "platform/rover_config.h"
-#include "board/board.h"
-#include "drivers/encoder.h"
-#include "drivers/motor_controller.h"
-#include "drivers/pump_controller.h"
-#include "drivers/serial_cmd.h"
+#include "stm32f10x.h"
 
-static void blink_ready(void)
-{
-    for (int i = 0; i < 3; i++) {
-        led_on();
-        delay_ms(200);
-        led_off();
-        delay_ms(200);
-    }
-}
+#include "BSP\bsp_systick.h"
+#include "BSP\bsp_gpio.h"
 
 int main(void)
 {
-    board_init();
-    motorcontrol_init();
-    pumpcontrol_init();
-    serialcmd_init();
-    encoder_init();
+    SystemInit();
 
-    driveStop();
-    disableDrivers();
-    pumpOff();
+    sysTick_Init();
 
-    blink_ready();
-    uart1_puts("STM32_READY\r\n");
+    gpioInit();
 
-    while (1) {
-        serialCmd_poll();
+    while(1)
+    {
+        led_toggle();
+
+        DelayMs(500);
     }
 }
