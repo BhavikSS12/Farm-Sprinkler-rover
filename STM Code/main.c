@@ -7,14 +7,8 @@ int main(void)
 {
     SystemInit();
 
-    sysTick_Init();
-
-    gpioInit();
-
     while(1)
     {
-        led_toggle();
-
-        DelayMs(500);
+        
     }
 }

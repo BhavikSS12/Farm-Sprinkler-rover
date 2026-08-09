@@ -9,10 +9,10 @@ typedef enum{
 	RPWM_B,
 	LPWM_B,
 	PWM_pump_ena,
-}PWM_channel;
+}PWM_channel_t;
 
 void pwmInit(void);
 
-void pwmSet(PWM_channel , uint8_t duty);
+void pwmSet(PWM_channel_t ch , uint8_t duty);
 
 #endif
