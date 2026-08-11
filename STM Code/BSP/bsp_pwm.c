@@ -3,7 +3,7 @@
 #include "bsp_gpio.h"
 
 static void timerBaseInit(TIM_TypeDef *tim){
-	tim->PSC = 8 ;
+	tim->PSC = 8;
 	tim->ARR = 255;
 	tim->CR1 |= TIM_CR1_ARPE;
 	tim->EGR = TIM_EGR_UG;

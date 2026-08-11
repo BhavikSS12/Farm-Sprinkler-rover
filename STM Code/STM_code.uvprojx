@@ -420,11 +420,6 @@
               <FilePath>.\BSP\bsp_uart.c</FilePath>
             </File>
             <File>
-              <FileName>bsp_pwn.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\BSP\bsp_pwn.h</FilePath>
-            </File>
-            <File>
               <FileName>bsp_uart.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\BSP\bsp_uart.h</FilePath>

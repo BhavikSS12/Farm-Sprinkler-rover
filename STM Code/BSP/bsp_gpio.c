@@ -2,10 +2,10 @@
 
 void gpioClockEnable(GPIO_TypeDef *port){
 	if(port == GPIOA){
-		RCC->APB2ENR = RCC_APB2ENR_IOPAEN;
+		RCC->APB2ENR |= RCC_APB2ENR_IOPAEN;
 	}
 	else if(port == GPIOB){
-		RCC->APB2ENR = RCC_APB2ENR_IOPBEN;
+		RCC->APB2ENR |= RCC_APB2ENR_IOPBEN;
 	}
 	else if(port == GPIOC){
 		RCC->APB2ENR |= RCC_APB2ENR_IOPCEN;
@@ -16,7 +16,8 @@ void gpioClockEnable(GPIO_TypeDef *port){
 }
 
 void gpioInit(GPIO_TypeDef *port , uint8_t pin , uint8_t mode_cnf){
-	if (pin < 8) {
+	gpioClockEnable(port);
+    if (pin < 8) {
         uint32_t sh = (uint32_t)pin * 4U;
         port->CRL = (port->CRL & ~(0xFU << sh)) | ((uint32_t)mode_cnf << sh);
     } else {
@@ -33,4 +34,11 @@ uint8_t gpioRead(GPIO_TypeDef *port , uint8_t pin){
 	return (uint8_t)((port->IDR >> pin) & 1U ); 
 }
 
+void gpioSet(GPIO_TypeDef *port , uint8_t pin){
+    gpio->BSRR = (1U << pin);
+}
+
+void gpioReset(GPIO_TypeDef *port, uint8_t pin){
+    gpio->bsrr = (1U << (pin + 16U));
+}
 

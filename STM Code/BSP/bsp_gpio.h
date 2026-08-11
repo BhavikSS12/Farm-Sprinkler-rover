@@ -14,7 +14,7 @@ void    gpioInit(GPIO_TypeDef *port, uint8_t pin, uint8_t mode_cnf);
 void    gpioWrite(GPIO_TypeDef *port, uint8_t pin, uint8_t state);
 uint8_t gpioRead(GPIO_TypeDef *port, uint8_t pin);
 
-#define gpioSet(p,n)   BSP_GPIO_Write(p,n,1)
-#define gpioReset(p,n) BSP_GPIO_Write(p,n,0)
+void gpioSet(GPIO_TypeDef *port , uint8_t pin);
+void gpioReset(GpioTypeDef *port , uint8_t pin);
 
 #endif

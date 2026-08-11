@@ -12,7 +12,6 @@ typedef enum{
 }PWM_channel_t;
 
 void pwmInit(void);
-
 void pwmSet(PWM_channel_t ch , uint8_t duty);
 
 #endif
