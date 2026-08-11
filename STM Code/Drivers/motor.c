@@ -11,31 +11,31 @@
 
 void Motor_Init(void) {
     RCC->APB2ENR |= RCC_APB2ENR_IOPBEN;
-    BSP_GPIO_Init(GPIOB, R_EN_A_PIN, GPIO_OUT_PP_50);
-    BSP_GPIO_Init(GPIOB, L_EN_A_PIN, GPIO_OUT_PP_50);
-    BSP_GPIO_Init(GPIOB, R_EN_B_PIN, GPIO_OUT_PP_50);
-    BSP_GPIO_Init(GPIOB, L_EN_B_PIN, GPIO_OUT_PP_50);
+    gpioInit(GPIOB, R_EN_A_PIN, GPIO_OUT_PP_50);
+    gpioInit(GPIOB, L_EN_A_PIN, GPIO_OUT_PP_50);
+    gpioInit(GPIOB, R_EN_B_PIN, GPIO_OUT_PP_50);
+    gpioInit(GPIOB, L_EN_B_PIN, GPIO_OUT_PP_50);
     Motor_DisableAll();
-    BSP_PWM_Init();
+    pwmInit();
 }
 
 void Motor_EnableAll(void) {
-    BSP_GPIO_Set(GPIOB, R_EN_A_PIN); BSP_GPIO_Set(GPIOB, L_EN_A_PIN);
-    BSP_GPIO_Set(GPIOB, R_EN_B_PIN); BSP_GPIO_Set(GPIOB, L_EN_B_PIN);
+    gpioSet(GPIOB, R_EN_A_PIN); gpioSet(GPIOB, L_EN_A_PIN);
+    gpioSet(GPIOB, R_EN_B_PIN); gpioSet(GPIOB, L_EN_B_PIN);
 }
 
 void Motor_DisableAll(void) {
-    BSP_GPIO_Reset(GPIOB, R_EN_A_PIN); BSP_GPIO_Reset(GPIOB, L_EN_A_PIN);
-    BSP_GPIO_Reset(GPIOB, R_EN_B_PIN); BSP_GPIO_Reset(GPIOB, L_EN_B_PIN);
+    gpioReset(GPIOB, R_EN_A_PIN); gpioReset(GPIOB, L_EN_A_PIN);
+    gpioReset(GPIOB, R_EN_B_PIN); gpioReset(GPIOB, L_EN_B_PIN);
 }
 
-void Motor_A_Forward(uint8_t s) { BSP_PWM_Set(PWM_LPWM_A, s); BSP_PWM_Set(PWM_RPWM_A, 0); }
-void Motor_A_Reverse(uint8_t s) { BSP_PWM_Set(PWM_LPWM_A, 0); BSP_PWM_Set(PWM_RPWM_A, s); }
-void Motor_A_Stop(void)         { BSP_PWM_Set(PWM_LPWM_A, 0); BSP_PWM_Set(PWM_RPWM_A, 0); }
+void Motor_A_Forward(uint8_t s) { pwmSet(LPWM_A, s); pwmSet(RPWM_A, 0); }
+void Motor_A_Reverse(uint8_t s) { pwmSet(LPWM_A, 0); pwmSet(RPWM_A, s); }
+void Motor_A_Stop(void)         { pwmSet(LPWM_A, 0); pwmSet(RPWM_A, 0); }
 
-void Motor_B_Forward(uint8_t s) { BSP_PWM_Set(PWM_RPWM_B, s); BSP_PWM_Set(PWM_LPWM_B, 0); }
-void Motor_B_Reverse(uint8_t s) { BSP_PWM_Set(PWM_RPWM_B, 0); BSP_PWM_Set(PWM_LPWM_B, s); }
-void Motor_B_Stop(void)         { BSP_PWM_Set(PWM_RPWM_B, 0); BSP_PWM_Set(PWM_LPWM_B, 0); }
+void Motor_B_Forward(uint8_t s) { pwmSet(RPWM_B, s); pwmSet(LPWM_B, 0); }
+void Motor_B_Reverse(uint8_t s) { pwmSet(RPWM_B, 0); pwmSet(LPWM_B, s); }
+void Motor_B_Stop(void)         { pwmSet(RPWM_B, 0); pwmSet(LPWM_B, 0); }
 
 void Motor_Forward(uint8_t s)  { Motor_EnableAll(); Motor_A_Forward(s); Motor_B_Forward(s); }
 void Motor_Reverse(uint8_t s)  { Motor_EnableAll(); Motor_A_Reverse(s); Motor_B_Reverse(s); }

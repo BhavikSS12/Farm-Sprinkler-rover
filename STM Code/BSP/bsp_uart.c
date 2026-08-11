@@ -37,8 +37,8 @@ void uartSendInt(int32_t val){
 	}
 	
 	while(val > 0 && i < 11){
-		buff[i] = val % 10;
-		val= val/10;
+		buff[i] = (char)('0' + (val % 10));
+		val = val / 10;
 		i++;
 	}
 	

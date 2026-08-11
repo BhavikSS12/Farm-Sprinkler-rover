@@ -18,18 +18,17 @@ uint32_t getTick(void){
 	return tick;
 }
 
-uint32_t BSP_GetMicros(void) {
+uint32_t getMicros(void) {
     uint32_t ms   = tick;
     uint32_t load = SysTick->LOAD + 1U;
     uint32_t val  = SysTick->VAL;
     return (ms * 1000U) + ((load - val) * 1000U / load);
 }
 
-void DelayMs(uint32_t delayMs){
+void delayMs(uint32_t ms){
 	uint32_t startTick = getTick();
 	
-	while ((getTick() - startTick) < delayMs){}
-	
+	while ((getTick() - startTick) < ms){}
 }
 
 uint8_t isTimeout(uint32_t startTick , uint32_t timeoutMs){

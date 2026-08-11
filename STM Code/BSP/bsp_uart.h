@@ -10,7 +10,7 @@ void uartSendStr(const char *s);
 void uartSendInt(int32_t val);
 int8_t uartAvailable(void);
 
-char uartReadchar(void);
+char uartReadChar(void);
 
 /* Non-blocking line reader. Returns 1 when '\n' received. */
 uint8_t uartReadLine(char *buf , uint8_t maxlen);

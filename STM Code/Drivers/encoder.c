@@ -1,7 +1,7 @@
 #include "encoder.h"
-#include "../BSP/bsp_gpio.h"
-#include "../BSP/bsp_systick.h"
-#include "stm32f10x.h"   /* ← changed */
+#include "BSP/bsp_gpio.h"
+#include "BSP/bsp_systick.h"
+#include "stm32f10x.h"
 
 #define DEBOUNCE_US 1500U
 
@@ -10,8 +10,8 @@ static volatile uint32_t lastA  = 0, lastB  = 0;
 
 void Encoder_Init(void) {
     RCC->APB2ENR |= RCC_APB2ENR_IOPAEN | RCC_APB2ENR_AFIOEN;
-    BSP_GPIO_Init(GPIOA, 0, GPIO_IN_PUPD);
-    BSP_GPIO_Init(GPIOA, 1, GPIO_IN_PUPD);
+    gpioInit(GPIOA, 0, GPIO_IN_PUPD);
+    gpioInit(GPIOA, 1, GPIO_IN_PUPD);
     GPIOA->ODR |= (1U << 0) | (1U << 1);   /* pull-up */
 
     EXTI->IMR  |= EXTI_IMR_MR0  | EXTI_IMR_MR1;
@@ -24,13 +24,13 @@ void Encoder_Init(void) {
 }
 
 void Encoder_ISR_A(void) {
-    uint32_t now = BSP_GetMicros();
+    uint32_t now = getMicros();
     if ((now - lastA) > DEBOUNCE_US) { pulseA++; lastA = now; }
     EXTI->PR = EXTI_PR_PR0;
 }
 
 void Encoder_ISR_B(void) {
-    uint32_t now = BSP_GetMicros();
+    uint32_t now = getMicros();
     if ((now - lastB) > DEBOUNCE_US) { pulseB++; lastB = now; }
     EXTI->PR = EXTI_PR_PR1;
 }

@@ -43,27 +43,27 @@ void CMD_Parse(const char *line) {
     }
     /* E  → Report encoder counts */
     else if (strcmp(line, "E") == 0) {
-        BSP_UART_SendStr("A:");
-        BSP_UART_SendInt(Encoder_ReadA());
-        BSP_UART_SendStr(",B:");
-        BSP_UART_SendInt(Encoder_ReadB());
-        BSP_UART_SendChar('\n');
+        uartSendStr("A:");
+        uartSendInt(Encoder_ReadA());
+        uartSendStr(",B:");
+        uartSendInt(Encoder_ReadB());
+        uartSendChar('\n');
     }
     /* RESET  → Zero encoder counts */
     else if (strcmp(line, "RESET") == 0) {
         Encoder_Reset();
-        BSP_UART_SendStr("OK\n");
+        uartSendStr("OK\n");
     }
     /* PUMP_ON:<pwm>  → Start pump */
     else if (str_starts(line, "PUMP_ON:")) {
         Pump_On((uint8_t)parse_val(line, 8));
-        BSP_UART_SendStr("PUMP_ON\n");
+        uartSendStr("PUMP_ON\n");
     }
     /* PUMP_OFF  → Stop pump */
     else if (strcmp(line, "PUMP_OFF") == 0) {
         Pump_Off();
-        BSP_UART_SendStr("PUMP_OFF\n");
+        uartSendStr("PUMP_OFF\n");
     }
     /* Unknown → silent ignore (or uncomment for debug) */
-    /* else { BSP_UART_SendStr("ERR\n"); } */
+    /* else { uartSendStr("ERR\n"); } */
 }

@@ -35,10 +35,10 @@ uint8_t gpioRead(GPIO_TypeDef *port , uint8_t pin){
 }
 
 void gpioSet(GPIO_TypeDef *port , uint8_t pin){
-    gpio->BSRR = (1U << pin);
+    port->BSRR = (1U << pin);
 }
 
 void gpioReset(GPIO_TypeDef *port, uint8_t pin){
-    gpio->bsrr = (1U << (pin + 16U));
+    port->BSRR = (1U << (pin + 16U));
 }
 

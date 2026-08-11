@@ -15,6 +15,6 @@ void    gpioWrite(GPIO_TypeDef *port, uint8_t pin, uint8_t state);
 uint8_t gpioRead(GPIO_TypeDef *port, uint8_t pin);
 
 void gpioSet(GPIO_TypeDef *port , uint8_t pin);
-void gpioReset(GpioTypeDef *port , uint8_t pin);
+void gpioReset(GPIO_TypeDef *port , uint8_t pin);
 
 #endif
